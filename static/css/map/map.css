@@ -1,0 +1,32 @@
+/*使所有<span></span>标签内为楷体*/
+span {
+    font-family: 楷体;
+}
+
+.table {
+    border-collapse: collapse;
+    margin-left: 15%;
+    width: 80%;
+}
+
+tr td {
+    border: solid #000 1px;
+    width: auto;
+    padding: 4px 2px 2px 4px;
+    font-family: 楷体;
+}
+
+dl {
+    padding: 4px 2px 2px 4px
+}
+
+button {
+    border-radius: 15%;
+}
+
+.title {
+    height: auto;
+    font-size: 20px;
+    background-color: #E0E0E0;
+    border-radius: 5px;
+}
