@@ -9,12 +9,116 @@
                 <div class="col-sm-3">
                     <div class="form-group" style="margin: 5px 0px 5px 1px;">
                 		<span class="input-group-btn">
-
+                            <button type="button" data-toggle="modal" data-target="#myModal"
+                                    class="btn btn-primary">添加</button>
 		                </span>
                     </div>
                 </div>
                 <!--添加-->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    &times;
+                                </button>
+                                <h4 class="modal-title" id="myModalLabel">
+                                    添加管理员
+                                </h4>
+                            </div>
+                            <div class="modal-body">
+                                <form id="adduserform" data-parsley-validate class="form-horizontal form-label-left">
 
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">姓名
+                                            <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" required="required"
+                                                   class="form-control col-md-7 col-xs-12" name="user_name">
+                                        </div>
+                                        <label style="left:-23px;font-weight:0;color:red"
+                                               class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">{{ errors }}
+                                        </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">性别<span
+                                                class="required">*</span></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <div id="gender" class="btn-group">
+                                                <label class="btn btn-default" data-toggle-class="btn-primary"
+                                                       data-toggle-passive-class="btn-primary">
+                                                    <input type="radio" name="user_gender" value="1"
+                                                           checked="checked"> &nbsp; 男 &nbsp;
+                                                </label>
+                                                <label class="btn btn-default" data-toggle-class="btn-primary"
+                                                       data-toggle-passive-class="btn-default">
+                                                    <input type="radio" name="user_gender" value="0"
+                                                           ng-model="user.gender">
+                                                    &nbsp; 女&nbsp;
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">电话
+                                            <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" required="required"
+                                                   class="form-control col-md-7 col-xs-12" name="user_telphone">
+                                        </div>
+                                        <label style="left:-23px;font-weight:0;color:red"
+                                               class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">( *
+                                            号码不可以重复 )
+                                        </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">邮箱<span
+                                                class="required"></span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" required="required"
+                                                   class="form-control col-md-7 col-xs-12" name="user_email">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">登录账户名
+                                            <span class="required"></span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" required="required"
+                                                   class="form-control col-md-7 col-xs-12" name="user_userName">
+                                        </div>
+                                        <label style="left:-23px;font-weight:0;color:red"
+                                               class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">( *
+                                            用户名不可重复 )
+                                        </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">登录密码
+                                            <span class="required"></span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="password" required="required"
+                                                   class="form-control col-md-7 col-xs-12" name="user_password">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" id="userclose">取消
+                                </button>
+                                <button type="button" class="btn btn-primary" onclick="addUserInfo()">
+                                    保存
+                                </button>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal -->
+                </div>
                 <!--编辑-->
 
 
@@ -69,4 +173,27 @@
         </div>
     </div>
 </div>
+
+    <script>
+        function addUserInfo(){
+            console.log($("#adduserform").serialize());
+            $.ajax({
+            url:'add/',
+            type:'post',
+            data:$("#adduserform").serialize(),
+                dataType:'json',
+            success:function(data){
+                console.log(1111)
+                errors = data;
+                console.log(data)
+            },
+            error:function(ret){
+                console.log(222)
+                console.log(ret)
+            }
+
+        });
+        }
+
+    </script>
 {% endblock %}
