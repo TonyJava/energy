@@ -40,10 +40,7 @@
         <!-- 引入 ECharts 文件 -->
     <script src="../static/js/echa/echarts.simple.min.js"></script>
     <script src="../static/js/echa/echarts.min.js"></script>
-    
-    <script src="../static/js/angular.min.js"></script>
-    <script src="../static/js/angular-ui-router.min.js"></script>
-    <script src="../static/js/index.js"></script>
+
     <style>
     
         a {
@@ -101,7 +98,7 @@
 <div class="container body">
     <div class="main_container">
         <div id="leftcol" class="col-md-3 left_col">
-            <div class="left_col scroll-view" style="min-height:636px">
+            <div class="left_col scroll-view" style="min-height:500px">
                 <div class="navbar nav_title" style="border: 0;">
                     <a href="#" class="site_title"><img style="height:30px;width:30px" src="../static/images/position.png">
                         <span style="font-size:17px">能源管理系统</span></a>
@@ -133,7 +130,7 @@
                     <div class="menu_section">
 <!--                         <h3>查看</h3> -->
                         <ul class="nav side-menu" id="mymenu">
-                            <li id="fenindex"><a ui-sref="index"><i class="fa fa-home"></i> 首页 </a>
+                            <li><a><i class="fa fa-home"></i> 首页 </a>
                             </li>
                             
                             <li><a><i class="fa fa-database"></i> 基础数据 <span
@@ -191,8 +188,10 @@
         </div>
 
 
-        <div class="right_col" style="height:585px;padding:0px"
-             ui-view=""></div>
+        <div class="right_col" style="height:500px;padding:0px">
+            {% block mainbody %}
+            {% endblock %}
+        </div>
 
 
         <!-- footer content -->
@@ -206,13 +205,6 @@
     </div>
 </div>
 
-<!-- <script type="text/javascript" -->
-<!--             src="http://webapi.amap.com/maps?v=1.3&key=5c87838663300f4e7430a79582b0dc93&plugin=AMap.Autocomplete,AMap.PlaceSearch"></script> -->
-<!--     <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script> -->
-<!--     <script type="text/javascript" src="js/addToolBar.js"></script> -->
-    <!--<script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>-->
-    <!--<script src="layui/layui.all.js"></script>-->
-<!--     <script src="http://webapi.amap.com/ui/1.0/main.js?v=1.0.10"></script> -->
 
 <!-- jQuery -->
 <script src="../static/vendors/js/jquery.min.js"></script>
@@ -270,9 +262,6 @@
 <!-- Custom Theme Scripts -->
 <script src="../static/build/js/custom.min.js"></script>
 
-<script src="../static/controller/ParentCtrl.js"></script>
-<script src="../static/controller/user/UserCtrl.js"></script>
-
 
 
 
@@ -280,7 +269,7 @@
 		$("#mymenu").children("li").children("ul").children("li").click(function(){
 			var li = $(this);
 			li.siblings().removeClass("active");
-			
+
 			var css = li.attr("class");
 			if(css=="active"){
 				li.addClass("active");
@@ -288,7 +277,7 @@
 				li.removeClass("active");
 			}
 		});
-		
+
 		$("#mymenu").children("li").children("ul").children("li").children("ul").children("li").click(function(){
 			var li = $(this);
 			li.siblings().removeClass("active");
