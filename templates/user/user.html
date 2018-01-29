@@ -28,7 +28,7 @@
                                 </h4>
                             </div>
                             <div class="modal-body">
-                                <form id="adduserform" data-parsley-validate class="form-horizontal form-label-left">
+                                <form action="user/add" method="post" id="adduserform" data-parsley-validate class="form-horizontal form-label-left">
 
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">姓名
@@ -39,7 +39,7 @@
                                                    class="form-control col-md-7 col-xs-12" name="user_name">
                                         </div>
                                         <label style="left:-23px;font-weight:0;color:red"
-                                               class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">{{ errors }}
+                                               class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">{{ errors_msg.user_name }}
                                         </label>
                                     </div>
                                     <div class="form-group">
@@ -146,17 +146,23 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>han</td>
-                                <td>han</td>
-                                <td>han</td>
-                                <td>123</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-
-                            </tr>
+                            {% for userinfo in userinfos %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ userinfo.name }}</td>
+                                    <td>{{ userinfo.user_name }}</td>
+                                    <td>{% if userinfo.gender == 1 %}
+                                        男
+                                        {% else %}
+                                        女
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ userinfo.telphone }}</td>
+                                    <td>{{ userinfo.email }}</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            {% endfor %}
                             </tbody>
                         </table>
                     </div>

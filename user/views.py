@@ -1,7 +1,8 @@
-from django.shortcuts import render,HttpResponse
+from django.shortcuts import render,HttpResponse,redirect
 from django import forms
 import re
 import json
+from . import models
 
 # Create your views here.
 def mobile_validate(value):
@@ -21,7 +22,9 @@ class AddUserForm(forms.Form):
     pass
 
 def userview(request):
-    return render(request,'user/user.html')
+    data = models.userinfo.objects.all()
+    print(data)
+    return render(request,'user/user.html',{'userinfos':data})
 
 # 添加用户
 def addUserInfo(request):
@@ -31,12 +34,22 @@ def addUserInfo(request):
         if user_input_obj.is_valid():
             data = user_input_obj.clean()
             print(data)
+            user_name = data['user_name']
+            user_gender = data['user_gender']
+            user_telphone = data['user_telphone']
+            user_userName = data['user_userName']
+            user_password = data['user_password']
+
+            models.userinfo.objects.create(user_name=user_userName,password=user_password,gender=user_gender,
+                                           telphone=user_telphone,name=user_name)
+
             result['message'] = '添加成功'
-            return HttpResponse(json.dumps(result))
+            return redirect('/user/')
+            # return HttpResponse(json.dumps(result))
         else:
             error_msg = user_input_obj.errors
-            print(error_msg)
             result = error_msg.as_json()
-            return HttpResponse(result)
-            # return render(request,'user/user.html',{'obj':user_input_obj,'errors':error_msg})
+            print(result)
+            # return HttpResponse(result)
+            return render(request,'user/user.html',{'obj':user_input_obj,'errors_msg':result})
     pass
