@@ -15,8 +15,9 @@ class AddUserForm(forms.Form):
 
     user_name = forms.CharField(required=True,error_messages={'required':'姓名不允许为空！'})
     user_gender = forms.IntegerField(widget=forms.widgets.Select(choices=user_gender_choice))
-    user_telphone = forms.CharField(required=False,validators=[mobile_validate,],)
-    user_email = forms.EmailField
+    # user_telphone = forms.CharField(required=False,validators=[mobile_validate,],)
+    user_telphone = forms.CharField(required=False)
+    user_email = forms.EmailField(required=False,error_messages={'invalid':'邮箱格式错误'})
     user_userName = forms.CharField(required=True,error_messages={'required':'用户名不允许为空！'})
     user_password = forms.CharField()
     pass
